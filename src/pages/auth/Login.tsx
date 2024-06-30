@@ -76,7 +76,7 @@ const Login = () => {
   }, [accessToken, activeUser, authPhase]);
 
   return (
-    <div className="flex w-full sm:px-4 mt-24 justify-center pt-4">
+    <div className="flex w-full h-full sm:px-4 justify-center items-center pt-4">
       <div className="rounded-lg-xl border bg-card text-card-foreground border-none shadow-none max-w-lg w-full h-min">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>

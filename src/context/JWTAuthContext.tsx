@@ -2,6 +2,7 @@ import { RootState } from "@/store/store";
 import axios from "axios";
 import React from "react";
 import { useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
 
 interface IAuthState {
   isInitialized: boolean;
@@ -14,16 +15,9 @@ export const isValidToken = (accessToken: string) => {
     return false;
   }
 
-  const [encodedHeader, encodedPayload] = accessToken.split(".");
-  const header = JSON.parse(atob(encodedHeader));
-  const payload = JSON.parse(atob(encodedPayload));
-  const now = new Date();
-
-  if (now < header.expiresIn) {
-    throw new Error("Expired token");
-  }
-
-  return payload;
+  const decodedToken = jwtDecode(accessToken);
+  const currentTime = Date.now() / 1000;
+  return decodedToken.exp > currentTime;
 };
 
 interface IAuthContextValue extends IAuthState {
@@ -143,6 +137,7 @@ export const AuthProvider: React.FC<IAuthProviderProps> = (props) => {
   React.useEffect(() => {
     const initialize = () => {
       const accessToken = window.localStorage.getItem("accessToken");
+
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 

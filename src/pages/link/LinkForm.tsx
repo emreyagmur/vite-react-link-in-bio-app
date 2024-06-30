@@ -72,7 +72,7 @@ const LinkForm: React.FC<LinkFormProps> = (props) => {
       title: (actionType === "add" && null) || userLinkInfo?.title || null,
       url: (actionType === "add" && null) || userLinkInfo?.url || null,
       userId: activeUser?._id,
-      linkType: "link",
+      linkType: (actionType === "add" && "") || userLinkInfo?.linkType || "",
       icon: (actionType === "add" && "") || userLinkInfo?.icon || "",
     },
   });
@@ -164,6 +164,33 @@ const LinkForm: React.FC<LinkFormProps> = (props) => {
                           {i.iconName}
                         </SelectItem>
                       ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="flex flex-col space-y-1.5">
+            <FormField
+              control={form.control}
+              name="linkType"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Link Type</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Link Type" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="link">Link</SelectItem>
+                      <SelectItem value="button">Button</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />

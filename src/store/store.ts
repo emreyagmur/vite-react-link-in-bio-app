@@ -6,11 +6,12 @@ import { all } from "redux-saga/effects";
 import RootReducer from "./rootReducer";
 import * as auth from "@/pages/auth/_store/auth";
 import { saga as userLinkSaga } from "@/pages/link/_store/link";
+import { saga as userSettingSaga } from "@/pages/link/_store/user-setting";
 
 const sagaMiddleware = createSagaMiddleware();
 
 export function* rootSaga() {
-  const mainSagas = [auth.saga(), userLinkSaga()];
+  const mainSagas = [auth.saga(), userLinkSaga(), userSettingSaga()];
   yield all(mainSagas);
 }
 

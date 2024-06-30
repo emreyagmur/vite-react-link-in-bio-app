@@ -70,7 +70,6 @@ const Profile = () => {
   });
 
   const onSubmit = (data: z.infer<typeof ProfileFormSchema>) => {
-    console.log(data);
     dispatch(authActions.updateUser(data));
   };
 
@@ -100,7 +99,7 @@ const Profile = () => {
           </CardHeader>
           <CardContent>
             <form>
-              <div className=" grid md:grid-cols-2 grid-cols-1 gap-4 w-full items-center">
+              <div className="grid md:grid-cols-2 grid-cols-1 gap-4 w-full items-center">
                 <div className="flex flex-col space-y-1.5">
                   <FormField
                     control={form.control}
