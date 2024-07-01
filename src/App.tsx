@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import AuthLayout from "./components/AuthLayout";
+import ClientLayout from "./components/ClientLayout";
 import { Suspense } from "react";
 import loadable from "@loadable/component";
 import { Toaster } from "./components/ui/toaster";
@@ -11,6 +12,7 @@ const LinkList = loadable(() => import("./pages/link/LinkList"));
 const Login = loadable(() => import("./pages/auth/Login"));
 const Register = loadable(() => import("./pages/auth/Register"));
 const NotFoundPage = loadable(() => import("./pages/NotFoundPage"));
+const ClientPage = loadable(() => import("./pages/client/ClientPage"));
 const Logout = loadable(() => import("./pages/auth/Logout"));
 
 const App = () => {
@@ -23,6 +25,10 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="*" element={<NotFoundPage />} />
+          </Route>
+
+          <Route element={<ClientLayout />}>
+            <Route path="/:username" element={<ClientPage />} />
           </Route>
 
           {/* private routes */}

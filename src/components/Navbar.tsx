@@ -1,10 +1,9 @@
-import NavbarLinks from "./NavbarLinks";
 import { Button } from "./ui/button";
 import MobileMenu from "./MobileMenu";
 import { ModeToggle } from "./ThemeToggle";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
-import { LogOut, Settings, User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,14 +13,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import noimage from "../../public/noimage.png";
 
 const Navbar = () => {
   let { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   return (
     <nav className="fixed top-0 z-50 w-full flex md:grid md:grid-cols-12 items-center px-4 md:px-6 mx-auto py-3 border-b backdrop-blur">
-      <div className="md:col-span-3">
+      <div className="md:col-span-6">
         <a href="/" className="hidden lg:block">
           <h1 className="text-xl font-semibold">
             mylink.<span className="text-primary">bio</span>
@@ -31,9 +29,8 @@ const Navbar = () => {
           <MobileMenu />
         </div>
       </div>
-      <NavbarLinks />
 
-      <div className="flex items-center gap-x-2 ms-auto md:col-span-3">
+      <div className="flex items-center gap-x-2 ms-auto md:col-span-6">
         {isAuthenticated ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -51,10 +48,6 @@ const Navbar = () => {
                 >
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
 

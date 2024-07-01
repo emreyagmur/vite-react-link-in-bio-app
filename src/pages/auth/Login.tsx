@@ -32,6 +32,7 @@ import useAuth from "@/hooks/useAuth";
 import React from "react";
 import { Icons } from "@/store/types";
 import { LogIn } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 const LoginSchema = z.object({
   email: z.string().email().min(2, {
@@ -45,6 +46,8 @@ const LoginSchema = z.object({
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { toast } = useToast();
+
   const accessToken = useSelector(authAccessTokenSelector);
   const activeUser = useSelector(authUserSelector);
   const authPhase = useSelector(authPhaseSelector);
@@ -74,6 +77,17 @@ const Login = () => {
       }, 500);
     }
   }, [accessToken, activeUser, authPhase]);
+
+  React.useEffect(() => {
+    if (authPhase === "error") {
+      toast({
+        title: "Error",
+        description: authError,
+        variant: "destructive",
+      });
+      dispatch(authActions.setPhase(null, null));
+    }
+  }, [authPhase]);
 
   return (
     <div className="flex w-full h-full sm:px-4 justify-center items-center pt-4">

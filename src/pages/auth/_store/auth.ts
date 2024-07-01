@@ -53,6 +53,7 @@ type TActionAllState = IAuthState & {
   id: number;
   userId: string;
   name: string;
+  username: string;
   email: string;
   password: string;
   userPassword: IResetPassword;
@@ -192,9 +193,14 @@ export const authActions = {
     type: actionTypes.UPDATE_USER_PASSWORD,
     payload: { user, userPassword },
   }),
-  register: (name: string, email: string, password: string) => ({
+  register: (
+    name: string,
+    username: string,
+    email: string,
+    password: string
+  ) => ({
     type: actionTypes.SET_REGISTER,
-    payload: { name, email, password },
+    payload: { name, username, email, password },
   }),
   logout: () => ({
     type: actionTypes.AUTH_LOGOUT,
@@ -246,24 +252,21 @@ export function* saga() {
     function* registerSaga({ payload }: IAction<Partial<TActionAllState>>) {
       yield put(authActions.setPhase("loading", null));
 
-      const { name, email, password } = payload;
+      const { name, username, email, password } = payload;
       const response = yield axios.post(`${BASE_URL}/register`, {
         name,
+        username,
         email,
         password,
       });
 
       if (response === undefined) {
-        yield put(authActions.setPhase("error", "API Error!!!"));
+        yield put(authActions.setPhase("register-error", "Network Error"));
         return;
-      } else if (response.data.name) {
-        yield put(authActions.setPhase("error", response.data.name));
-        return;
-      } else if (response.data.email) {
-        yield put(authActions.setPhase("error", response.data.email));
-        return;
-      } else if (response.data.password) {
-        yield put(authActions.setPhase("error", response.data.password));
+      } else if (response.status !== 200) {
+        yield put(
+          authActions.setPhase("register-error", response.data.message)
+        );
         return;
       }
 
