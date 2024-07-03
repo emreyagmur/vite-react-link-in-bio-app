@@ -17,10 +17,12 @@ import {
 const Navbar = () => {
   let { isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
+  const redirectUrl = isAuthenticated ? "/dashboard" : "/";
   return (
     <nav className="fixed top-0 z-50 w-full flex md:grid md:grid-cols-12 items-center px-4 md:px-6 mx-auto py-3 border-b backdrop-blur">
       <div className="md:col-span-6">
-        <a href="/" className="hidden lg:block">
+        <a href={redirectUrl} className="hidden lg:block">
           <h1 className="text-xl font-semibold">
             mylink.<span className="text-primary">bio</span>
           </h1>

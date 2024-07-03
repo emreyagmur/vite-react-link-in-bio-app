@@ -19,9 +19,9 @@ const MobileMenu = () => {
           {isAuthenticated ? (
             <>
               <Link
-                to="/"
+                to="/dashboard"
                 className={
-                  location.pathname === "/"
+                  location.pathname === "/dashboard"
                     ? "group flex items-center px-2 py-2 font-medium rounded-md bg-muted hover:bg-opacity-75 cursor-pointer"
                     : "group flex items-center px-2 py-2 font-medium rounded-md hover:bg-muted hover:bg-opacity-75 cursor-pointer"
                 }

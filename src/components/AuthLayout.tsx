@@ -9,14 +9,12 @@ const AuthLayout = () => {
   return (
     <>
       {isAuthenticated ? (
-        navigate("/")
+        navigate("/dashboard")
       ) : (
         <>
           <Navbar />
           <div className="flex flex-row mx-auto h-full">
-            <main className="flex-1 overflow-hidden h-screen">
-              <Outlet />
-            </main>
+            <Outlet />
           </div>
         </>
       )}

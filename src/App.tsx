@@ -13,6 +13,7 @@ const Login = loadable(() => import("./pages/auth/Login"));
 const Register = loadable(() => import("./pages/auth/Register"));
 const NotFoundPage = loadable(() => import("./pages/NotFoundPage"));
 const ClientPage = loadable(() => import("./pages/client/ClientPage"));
+const LandingPage = loadable(() => import("./pages/landing/LandingPage"));
 const Logout = loadable(() => import("./pages/auth/Logout"));
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
         <Routes>
           {/* public routes */}
           <Route element={<AuthLayout />}>
+            <Route index element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="*" element={<NotFoundPage />} />
@@ -33,7 +35,7 @@ const App = () => {
 
           {/* private routes */}
           <Route element={<Layout />}>
-            <Route index element={<Home />} />
+            <Route index path="/dashboard" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/links" element={<LinkList />} />
             <Route path="/links/:action" element={<LinkList />} />
