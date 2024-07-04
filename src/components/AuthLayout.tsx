@@ -13,8 +13,14 @@ const AuthLayout = () => {
       ) : (
         <>
           <Navbar />
-          <div className="flex flex-row mx-auto h-full">
+          <div className="flex flex-col h-screen mx-auto">
             <Outlet />
+            <footer className="my-20">
+              <p className="text-center text-sm text-slate-500">
+                Copyright © {new Date().getFullYear()} mylink.bio All rights
+                reserved.
+              </p>
+            </footer>
           </div>
         </>
       )}
